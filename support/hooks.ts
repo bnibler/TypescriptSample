@@ -15,6 +15,6 @@ After(async function(scenario) {
     }
 });
 
-AfterAll({timeout: 100 * 1000}, async () => {
-    await browser.quit();
-});
+//AfterAll({timeout: 100 * 1000}, async () => {
+//    await browser.quit();
+// });
