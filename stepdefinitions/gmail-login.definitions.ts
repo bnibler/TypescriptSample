@@ -19,7 +19,6 @@ When(/^I enter the password for the valid address and click the Next button$/, a
   await page.enterPasswordAndSubmit();
 });
 
-Then(/^I am redirected to the Gmail inbox at (.*)$/, async(inboxUrl: string) => {
-  var inboxRedirectDone = ExpectedConditions.urlIs(inboxUrl);
-  await browser.wait(inboxRedirectDone, 15000);
+Then(/^I am redirected to the Gmail inbox at (.*)$/, {timeout: 15000}, async(inboxUrl: string) => {
+  await browser.wait(ExpectedConditions.urlIs(inboxUrl), 15000);
 });

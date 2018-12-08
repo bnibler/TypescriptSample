@@ -50,10 +50,8 @@ export class GmailLoginPage {
   public waitForPasswordInterface = async (): Promise<void> => {
     var passwordPageShown = ExpectedConditions.urlContains(this.loginPagePasswordUrl);
     var enteredAddressCorrect = ExpectedConditions.textToBePresentInElement(this.loginEnteredAddressDropdown, this.userCredentials.userEmail);
-    // var passwordPrompted = ExpectedConditions.elementToBeSelected(this.loginPasswordInput);
     await browser.wait(passwordPageShown, 3000);
     await browser.wait(enteredAddressCorrect, 500);
-    // await browser.wait(passwordPrompted, 2000);
   }
 
   public enterPasswordAndSubmit = async (): Promise<void> => {
