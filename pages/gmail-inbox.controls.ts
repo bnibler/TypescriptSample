@@ -1,5 +1,5 @@
-import { browser, $, ExpectedConditions } from 'protractor';
-import { waitForElementToBeClickable, waitForElementToHaveAttribute } from './helper-functions';
+import { browser, $, ExpectedConditions, by, element } from 'protractor';
+import { waitForElementToBeClickable, waitForElementToHaveAttribute, waitForElementToBeVisible } from './helper-functions';
 import { async } from 'q';
 
 
@@ -8,7 +8,7 @@ export class GmailInbox {
   private inboxPageURL = 'https://mail.google.com/mail/#inbox';
   
 
-  //Selectors
+  //Locators|strings
   private controlRoot = $('.aeH');
   private selectionControl = this.controlRoot.$('[aria-label=Select]');
   private selectAllCheckboxCssAttr = '[role=checkbox]';
@@ -17,9 +17,12 @@ export class GmailInbox {
   private deleteButton = this.controlRoot.$('[aria-label=Delete]');
   
   private primaryTabSelect =  $('[aria-label=Primary]');
-  
+  private primaryinboxEmptyMessage = 'Your Primary tab is empty.';
+  private primaryinboxEmptyClass = '.aRv';
 
-  constructor() { }
+
+  private composeButton = $('.T-I.J-J5-Ji.T-I-KE.L3');
+
 
   public selectPrimaryTab = async(): Promise<void> => {
     await waitForElementToBeClickable(this.primaryTabSelect);
@@ -34,15 +37,25 @@ export class GmailInbox {
   }
 
   public deleteAllEmailsInCurrentView = async(): Promise<void> => {
-    console.log('wait for button');
     await waitForElementToBeClickable(this.deleteButton, 3000);
-    console.log('clicky');
     await this.deleteButton.click();
-    console.log('wait for delete');
 
     await browser.wait(ExpectedConditions.invisibilityOf(this.deleteButton), 10000);
     await waitForElementToHaveAttribute(this.selectionControl, this.selectAllCheckboxCssAttr, this.selectAllUncheckedStatusAttr);
-    await browser.sleep(8000);
+    //Wait for minor page updates that occur after the delete
+    await browser.sleep(500);
   }
 
+  public checkIfInboxIsEmpty = async(): Promise<boolean> => {
+    return await element(by.cssContainingText(this.primaryinboxEmptyClass, this.primaryinboxEmptyMessage)).isDisplayed();
+  }
+
+  public composeNewMail = async(): Promise<void> => {
+    await waitForElementToBeClickable(this.composeButton, 1000);
+    await this.composeButton.click();
+  }
+
+  public checkEmailFromAddrInInbox = async(sourceAddress: string): Promise<boolean> => {
+    return await element(by.cssContainingText('.zF', 'me')).isDisplayed();
+  }
 }
