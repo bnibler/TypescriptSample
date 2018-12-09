@@ -1,5 +1,4 @@
 const { BeforeAll, After, AfterAll, Status } = require("cucumber");
-import * as fs from "fs";
 import { browser } from "protractor";
 import { config } from "../config/config";
 
@@ -15,6 +14,6 @@ After(async function(scenario) {
     }
 });
 
-//AfterAll({timeout: 100 * 1000}, async () => {
-//    await browser.quit();
-// });
+AfterAll({timeout: 100 * 1000}, async () => {
+   await browser.quit();
+});

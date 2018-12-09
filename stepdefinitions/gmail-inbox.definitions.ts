@@ -2,7 +2,7 @@ import { GmailInbox } from '../pages/gmail-inbox.controls'
 import { GmailComposer } from '../pages/gmail-composer.controls'
 import { expect } from 'chai';
 
-const { Given, When, Then } = require ('cucumber');
+const { When, Then } = require ('cucumber');
 const inboxPage = new GmailInbox();
 const composeControl = new GmailComposer();
 

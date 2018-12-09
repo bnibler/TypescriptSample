@@ -61,7 +61,4 @@ export class GmailLoginPage {
     await this.loginPasswordNextButton.isDisplayed();
     await this.loginPasswordNextButton.click();
   }
-
-  
-
 }

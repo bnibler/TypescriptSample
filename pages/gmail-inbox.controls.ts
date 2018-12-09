@@ -1,13 +1,8 @@
-import { browser, $, ExpectedConditions, by, element } from 'protractor';
-import { waitForElementToBeClickable, waitForElementToHaveAttribute, waitForElementToBeVisible } from './helper-functions';
-import { async } from 'q';
+import { browser, $, $$, ExpectedConditions, by, element } from 'protractor';
+import { waitForElementToBeClickable, waitForElementToHaveAttribute } from './helper-functions';
 
 
 export class GmailInbox {
-    //Page strings/URLs
-  private inboxPageURL = 'https://mail.google.com/mail/#inbox';
-  
-
   //Locators|strings
   private controlRoot = $('.aeH');
   private selectionControl = this.controlRoot.$('[aria-label=Select]');
@@ -20,6 +15,8 @@ export class GmailInbox {
   private primaryinboxEmptyMessage = 'Your Primary tab is empty.';
   private primaryinboxEmptyClass = '.aRv';
 
+  private receivedMailSources = $$('.zF');
+  private receivedMailSourceAttr = 'email';
 
   private composeButton = $('.T-I.J-J5-Ji.T-I-KE.L3');
 
@@ -56,6 +53,6 @@ export class GmailInbox {
   }
 
   public checkEmailFromAddrInInbox = async(sourceAddress: string): Promise<boolean> => {
-    return await element(by.cssContainingText('.zF', 'me')).isDisplayed();
+    return (await (await this.receivedMailSources.first()).getAttribute(this.receivedMailSourceAttr)) === sourceAddress;
   }
 }

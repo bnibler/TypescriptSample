@@ -1,6 +1,5 @@
-import { browser, $, ExpectedConditions, by, element } from 'protractor';
-import { waitForElementToBeClickable, waitForElementToHaveAttribute, waitForElementToBeVisible } from './helper-functions';
-import { async } from 'q';
+import { browser, $, ExpectedConditions } from 'protractor';
+import { waitForElementToBeClickable, waitForElementToBeVisible } from './helper-functions';
 
 
 export class GmailComposer {
@@ -12,15 +11,12 @@ export class GmailComposer {
 
 
   public setToField = async(emailAddress: string): Promise<void> => {
-    console.log('can I find the to field?');
     await waitForElementToBeVisible(this.mailToField);
-    console.log('I did it!');
     await this.mailToField.sendKeys(emailAddress);
   }
 
   public setSubjectField = async(emailSubject: string): Promise<void> => {
     await waitForElementToBeVisible(this.mailSubjectField);
-    // await this.mailSubjectField.click();
     await this.mailSubjectField.sendKeys(emailSubject);
   }
 
